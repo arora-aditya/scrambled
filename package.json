@@ -1,5 +1,5 @@
 {
-  "name": "xena",
+  "name": "scrambled",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,6 +15,7 @@
     "react": "^17.0.2",
     "react-contenteditable": "^3.3.5",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-scripts": "4.0.3",
     "sass": "^1.32.11",
     "typescript": "^4.1.2",
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^17.0.3"
+    "@types/react": "^17.0.3",
+    "@types/react-helmet": "^6.1.1"
   }
 }
