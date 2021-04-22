@@ -13,8 +13,9 @@ function App() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const parseUrl = (url: string) => {
-    if(url.length !== 0){
+  const parseUrl = (url: string | null) => {
+    if(url && url.length !== 0){
+      console.log(url);
       const byteArray = toByteArray(url);
       return LZMA_WORKER.decompress(byteArray);
     }
@@ -30,7 +31,11 @@ function App() {
   useEffect(
   () => {
     urlParsed = false;
-    const merged = parseUrl(window.location.pathname.substring(1));
+    let merged = parseUrl(window.location.pathname.substring(1));
+    if(merged === DELIMITER){
+      const urlParams = new URLSearchParams(window.location.search);
+      merged = parseUrl(urlParams.get("q"));
+    }
     let [t, ...c] = merged.split(DELIMITER);
     setContent(c.join(DELIMITER));
     setTitle(t);
