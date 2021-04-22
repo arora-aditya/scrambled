@@ -1,0 +1,36 @@
+.textbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .title {
+    width: 80%;
+    text-overflow: wrap;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .content {
+    min-width: 80%;
+    max-width: 80%;
+    text-overflow: wrap;
+    min-height: 50vw;
+    height: 100%;
+    font-size: 16px;
+    word-wrap:break-word;
+    overflow: wrap;
+  }
+  input, textarea, article { 
+    border-style: none; 
+    border-color: Transparent; 
+    overflow: auto;        
+    &:focus-visible {
+      outline-style: none;
+    }
+  }
+  
+  textarea {
+    resize: none;
+  }
+}
+
+
