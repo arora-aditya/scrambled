@@ -17,6 +17,7 @@ function App() {
   const [content, setContent] = useState("");
 
   const parseUrl = (url: string | null) => {
+    console.log("URL", url);
     if(url && url.length !== 0){
       const byteArray = toByteArray(url);
       return LZMA_WORKER.decompress(byteArray);
@@ -34,17 +35,19 @@ function App() {
   () => {
     urlParsed = false;
     let hash = window.location.pathname.substring(1);
-    if(hash === ""){
-      hash = TEMPLATE;
-    }
     let merged = parseUrl(hash);
     if(merged === DELIMITER){
-      const urlParams = new URLSearchParams(window.location.search);
-      merged = parseUrl(urlParams.get("q"));
+      merged = parseUrl(window.location.hash.substring(1));
+    }
+    if(merged === DELIMITER){
+      hash = TEMPLATE;
+      merged = parseUrl(hash);
     }
     let [t, ...c] = merged.split(DELIMITER);
-    if (t === "" && c === ""){
-      
+    console.log(t, c)
+    if (t === "" && c[0] === "<br>"){
+      t = "Hi there!";
+      c = ["Paste something in this textbox, and simply share the link!"]
     }
     setContent(c.join(DELIMITER));
     setTitle(t);
