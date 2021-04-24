@@ -7,17 +7,13 @@ import "./App.scss";
 import TextBox from "./components/textbox"
 
 const DELIMITER = "!@#$%^&*()";
-const HASHED_DELIMITER = "XQAAAAIKAAAAAAAAAAAQkABiQLFNXahyuyIk7f//uSAAAA==";
 const TEMPLATE = "XQAAAAI+AgAAAAAAAAAkGkAHQ3z02RwUSwoZnrEUJg0Z0Iy73ycWbTqb+TsPe7Qn/cedbhHRYxBkZKTZlcaOTcEcC2A0O/wBnTw1y/WX75WkzcZgZhKiXFEekInLXeLagifUS6LpMvp5ABLCW2Kn4Bc6EyCsblKeWj+BsNkcw3yJ95X2w8d9hjpXgRtWlpcwbKk65YKFBhqsMFpD6hvD4xgRDFM/AsfQ2Rra7V3vlE9kJMlTVaoTBh4PBs66hkNkRJmTxSPSnX8CovCH5n/QkO/5tZlxjO6GwIygMJIprg1yRrw2/o+2k2mIANvUcwHlah0hKa0iOnlkH/140ux5JcXLwQkLZggCSCKRvCtBULhTycNDDVmEGKLA4gRU2WY3FwSv4TnhzdBZwVKushFiMgTK5cYlCaSzd8ZqdVF2Xfqbvv899t0AqcFCg2KCRLQaxI+b1JzVahXiBbOaPs7QTxei3Cr2xG6B4kP3kVk/9WvUmAQjBSdqw9dfUQ2RVuU2Wtd3gcqGZLNvC19jS0yD3VrWHQjulIhczIhpIGii7jN700gpnhxVdgQBlk3RXsjpWi3opC5l4Z0T8pbUHtJubwPCvZuy53OK8gJ+lOP+42rn";
 
 function App() {
-  let urlParsed = true;
-  
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const parseUrl = (url: string | null) => {
-    console.log("URL", url);
     if(url && url.length !== 0){
       const byteArray = toByteArray(url);
       return LZMA_WORKER.decompress(byteArray);
@@ -33,12 +29,8 @@ function App() {
   
   useEffect(
   () => {
-    urlParsed = false;
     let hash = window.location.pathname.substring(1);
     let merged = parseUrl(hash);
-    if(merged === DELIMITER){
-      merged = parseUrl(window.location.hash.substring(1));
-    }
     if(merged === DELIMITER){
       hash = TEMPLATE;
       merged = parseUrl(hash);
